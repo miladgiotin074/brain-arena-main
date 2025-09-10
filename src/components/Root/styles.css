@@ -8,3 +8,33 @@
   align-items: center;
   justify-content: center;
 }
+
+.app-root {
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app-root.light {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.app-root.dark {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.app-root.ios {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.app-root.base {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}

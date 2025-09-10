@@ -7,8 +7,7 @@ import {
   useLaunchParams,
   useSignal,
 } from '@telegram-apps/sdk-react';
-import { TonConnectUIProvider } from '@tonconnect/ui-react';
-import { AppRoot } from '@telegram-apps/telegram-ui';
+// Removed @telegram-apps/telegram-ui dependency
 
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ErrorPage } from '@/components/ErrorPage';
@@ -29,14 +28,13 @@ function RootInner({ children }: PropsWithChildren) {
   }, [initDataUser]);
 
   return (
-      <AppRoot
-        appearance={isDark ? 'dark' : 'light'}
-        platform={
+      <div 
+        className={`app-root ${isDark ? 'dark' : 'light'} ${
           ['macos', 'ios'].includes(lp.tgWebAppPlatform) ? 'ios' : 'base'
-        }
+        }`}
       >
         {children}
-      </AppRoot>
+      </div>
   );
 }
 
@@ -51,6 +49,6 @@ export function Root(props: PropsWithChildren) {
       <RootInner {...props} />
     </ErrorBoundary>
   ) : (
-    <div className="root__loading">Loading.....</div>
+    <div className="text-white flex justify-center items-center h-screen">Loading.....</div>
   );
 }
