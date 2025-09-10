@@ -29,7 +29,6 @@ function RootInner({ children }: PropsWithChildren) {
   }, [initDataUser]);
 
   return (
-    <TonConnectUIProvider manifestUrl="/tonconnect-manifest.json">
       <AppRoot
         appearance={isDark ? 'dark' : 'light'}
         platform={
@@ -38,7 +37,6 @@ function RootInner({ children }: PropsWithChildren) {
       >
         {children}
       </AppRoot>
-    </TonConnectUIProvider>
   );
 }
 
@@ -53,6 +51,6 @@ export function Root(props: PropsWithChildren) {
       <RootInner {...props} />
     </ErrorBoundary>
   ) : (
-    <div className="root__loading">Loading</div>
+    <div className="root__loading">Loading.....</div>
   );
 }

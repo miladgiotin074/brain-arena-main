@@ -16,7 +16,6 @@ mockEnv().then(() => {
     // Configure all application dependencies.
     init({
       debug,
-      eruda: debug && ['ios', 'android'].includes(platform),
       mockForMacOS: platform === 'macos',
     });
   } catch (e) {

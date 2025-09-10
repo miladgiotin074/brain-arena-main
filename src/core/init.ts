@@ -20,19 +20,13 @@ import {
  */
 export async function init(options: {
   debug: boolean;
-  eruda: boolean;
   mockForMacOS: boolean;
 }): Promise<void> {
   // Set @telegram-apps/sdk-react debug mode and initialize it.
   setDebug(options.debug);
   initSDK();
 
-  // Add Eruda if needed.
-  options.eruda &&
-    void import('eruda').then(({ default: eruda }) => {
-      eruda.init();
-      eruda.position({ x: window.innerWidth - 50, y: 0 });
-    });
+
 
   // Telegram for macOS has a ton of bugs, including cases, when the client doesn't
   // even response to the "web_app_request_theme" method. It also generates an incorrect
@@ -82,8 +76,9 @@ export async function init(options: {
   }
 
   postEvent('web_app_set_header_color', { color: "#F54927" });
-
   postEvent('web_app_expand');
+  postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false });
   postEvent('web_app_setup_closing_behavior', { need_confirmation: true });
+
 
 }

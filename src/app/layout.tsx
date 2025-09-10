@@ -10,8 +10,8 @@ import 'normalize.css/normalize.css';
 import './_assets/globals.css';
 
 export const metadata: Metadata = {
-  title: 'Your Application Title Goes Here',
-  description: 'Your application description goes here',
+  title: 'Brain Arena Bot',
+  description: 'A Telegram web app for engaging in intelligence and general knowledge competitions',
 };
 
 export default async function RootLayout({ children }: PropsWithChildren) {
@@ -19,7 +19,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body>
+      <body className='bg-red-300'>
         <I18nProvider>
           <Root>{children}</Root>
         </I18nProvider>
