@@ -2,5 +2,14 @@
   "i18n": {
     "header": "Application supports i18n",
     "footer": "You can select a different language from the dropdown menu."
+  },
+  "home": {
+    "welcome": "Welcome To Web App",
+    "openSecondPage": "Open Second Page",
+    "selectLanguage": "Select Language"
+  },
+  "secondPage": {
+    "title": "Second Page",
+    "description": "This is the second page with back navigation enabled by default."
   }
 }
