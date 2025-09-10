@@ -12,6 +12,7 @@ import {
   themeParamsState,
   retrieveLaunchParams,
   emitEvent,
+  postEvent,
 } from '@telegram-apps/sdk-react';
 
 /**
@@ -79,4 +80,7 @@ export async function init(options: {
       bindViewportCssVars();
     });
   }
+
+  postEvent('web_app_set_header_color', { color: "#F54927" });
+
 }
