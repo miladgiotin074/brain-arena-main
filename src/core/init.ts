@@ -82,5 +82,6 @@ export async function init(options: {
   }
 
   postEvent('web_app_set_header_color', { color: "#F54927" });
+  postEvent('web_app_set_header_color', { color: "#F54927" });
 
 }
