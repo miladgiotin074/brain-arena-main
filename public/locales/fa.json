@@ -1,15 +1,38 @@
 {
+  "common": {
+    "back": "بازگشت"
+  },
   "i18n": {
     "header": "اپلیکیشن از چندزبانگی پشتیبانی می‌کند",
     "footer": "شما می‌توانید زبان مختلف را از منوی کشویی انتخاب کنید."
   },
+  "navigation": {
+    "home": "خانه",
+    "chats": "چت‌ها",
+    "notifications": "اعلان‌ها",
+    "settings": "تنظیمات"
+  },
   "home": {
-    "welcome": "خوش آمدید",
-    "openSecondPage": "باز کردن صفحه دوم",
+    "welcome": "به آرنای مغز خوش آمدید",
+    "subtitle": "دانش خود را در مسابقات هیجان‌انگیز آزمایش کنید",
+    "startQuiz": "شروع مسابقه",
     "selectLanguage": "انتخاب زبان"
   },
-  "secondPage": {
-    "title": "صفحه دوم",
-    "description": "این صفحه دوم است و navigation برگشت فعال است."
+  "chats": {
+    "title": "چت‌ها",
+    "noChats": "چت فعالی وجود ندارد",
+    "startConversation": "شروع گفتگو"
+  },
+  "notifications": {
+    "title": "اعلان‌ها",
+    "noNotifications": "اعلان جدیدی وجود ندارد",
+    "markAllRead": "همه را به عنوان خوانده شده علامت بزن"
+  },
+  "settings": {
+    "title": "تنظیمات",
+    "language": "زبان",
+    "theme": "تم",
+    "notifications": "اعلان‌ها",
+    "about": "درباره"
   }
 }

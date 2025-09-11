@@ -1,15 +1,38 @@
 {
+  "common": {
+    "back": "Back"
+  },
   "i18n": {
     "header": "Application supports i18n",
     "footer": "You can select a different language from the dropdown menu."
   },
+  "navigation": {
+    "home": "Home",
+    "chats": "Chats",
+    "notifications": "Notifications",
+    "settings": "Settings"
+  },
   "home": {
-    "welcome": "Welcome To Web App",
-    "openSecondPage": "Open Second Page",
+    "welcome": "Welcome to Brain Arena",
+    "subtitle": "Test your knowledge in exciting quiz competitions",
+    "startQuiz": "Start Quiz",
     "selectLanguage": "Select Language"
   },
-  "secondPage": {
-    "title": "Second Page",
-    "description": "This is the second page with back navigation enabled by default."
+  "chats": {
+    "title": "Chats",
+    "noChats": "No active chats",
+    "startConversation": "Start a conversation"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "noNotifications": "No new notifications",
+    "markAllRead": "Mark all as read"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "notifications": "Notifications",
+    "about": "About"
   }
 }

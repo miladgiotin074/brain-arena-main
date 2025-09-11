@@ -7,6 +7,7 @@ import {
   useLaunchParams,
   useSignal,
 } from '@telegram-apps/sdk-react';
+import { useLocale } from 'next-intl';
 // Removed @telegram-apps/telegram-ui dependency
 
 import { ErrorBoundary } from '@/components/ErrorBoundary';
@@ -18,6 +19,7 @@ import './styles.css';
 
 function RootInner({ children }: PropsWithChildren) {
   const lp = useLaunchParams();
+  const locale = useLocale();
 
   const isDark = useSignal(miniApp.isDark);
   const initDataUser = useSignal(initData.user);
@@ -27,11 +29,19 @@ function RootInner({ children }: PropsWithChildren) {
     initDataUser && setLocale(initDataUser.language_code);
   }, [initDataUser]);
 
+  // Set document direction based on locale
+  useEffect(() => {
+    const direction = locale === 'fa' ? 'rtl' : 'ltr';
+    document.documentElement.dir = direction;
+    document.documentElement.lang = locale;
+  }, [locale]);
+
   return (
       <div 
         className={`app-root ${isDark ? 'dark' : 'light'} ${
           ['macos', 'ios'].includes(lp.tgWebAppPlatform) ? 'ios' : 'base'
         }`}
+        dir={locale === 'fa' ? 'rtl' : 'ltr'}
       >
         {children}
       </div>

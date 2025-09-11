@@ -16,9 +16,10 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: PropsWithChildren) {
   const locale = await getLocale();
+  const direction = locale === 'fa' ? 'rtl' : 'ltr';
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale} dir={direction} suppressHydrationWarning>
       <body className='bg-[#1a1a1a]'>
         <I18nProvider>
           <Root>{children}</Root>
