@@ -41,12 +41,11 @@ export default function Settings() {
 
 
           {/* Settings Items */}
-          <div className="space-y-5 animate-slide-up">
+          <div className="space-y-5">
             {settingsItems.map((item, index) => (
               <div
                 key={index}
-                className="glass rounded-2xl p-6 border border-gray-600 hover:border-gray-500 transition-smooth hover:scale-[1.01] active:scale-[0.99] shadow-medium hover:shadow-strong w-full max-w-none"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className="glass rounded-2xl p-6 border border-gray-600 shadow-medium w-full max-w-none"
               >
                 {item.component ? (
                   // Language Selector Layout
@@ -60,7 +59,7 @@ export default function Settings() {
                         <p className="text-gray-400 text-body-small mt-1">Choose your preferred language</p>
                       </div>
                     </div>
-                    <div className="pl-18 animate-fade-in">
+                    <div className="pl-18">
                       {item.component}
                     </div>
                   </div>
@@ -81,7 +80,7 @@ export default function Settings() {
                     
                     <button
                       onClick={item.action}
-                      className="w-12 h-12 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl transition-smooth hover:scale-110 active:scale-95 shadow-soft hover:shadow-glow flex items-center justify-center ml-4"
+                      className="w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center ml-4"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -94,16 +93,16 @@ export default function Settings() {
           </div>
 
           {/* App Info */}
-          <div className="mt-8 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+          <div className="mt-8">
             <div className="glass rounded-2xl p-8 text-center border border-gray-600 shadow-strong">
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-600 to-blue-600 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-4 shadow-glow animate-bounce-slow">
+              <div className="w-20 h-20 bg-gradient-to-br from-purple-600 to-blue-600 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-4 shadow-glow">
                 🧠
               </div>
               <h3 className="text-heading-2 text-white mb-2 font-bold">Brain Arena</h3>
               <p className="text-body-large text-gray-300 mb-4 font-medium">Quiz Competition Platform</p>
               <div className="flex items-center justify-center space-x-2 text-body-small text-gray-400 mb-6">
                 <span>Made with</span>
-                <span className="text-red-400 animate-pulse text-lg">❤️</span>
+                <span className="text-red-400 text-lg">❤️</span>
                 <span>for Telegram WebApp</span>
               </div>
               

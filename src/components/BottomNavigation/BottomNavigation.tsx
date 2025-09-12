@@ -3,6 +3,7 @@
 import { useRouter, usePathname } from 'next/navigation';
 import { useCallback } from 'react';
 import { useTranslations } from 'next-intl';
+import { hapticFeedback } from '@telegram-apps/sdk-react';
 
 interface NavItem {
   key: string;
@@ -15,7 +16,7 @@ const navItems: NavItem[] = [
   { key: 'home', path: '/', icon: '🏠', labelKey: 'home' },
   { key: 'chats', path: '/chats', icon: '💬', labelKey: 'chats' },
   { key: 'notifications', path: '/notifications', icon: '🔔', labelKey: 'notifications' },
-  { key: 'settings', path: '/settings', icon: '⚙️', labelKey: 'settings' },
+  // { key: 'settings', path: '/settings', icon: '⚙️', labelKey: 'settings' }, // Temporarily hidden
 ];
 
 export function BottomNavigation() {
@@ -25,6 +26,12 @@ export function BottomNavigation() {
 
   const handleNavigate = useCallback((path: string, label: string) => {
     console.log(`Navigating to ${label}...`);
+    
+    // Add haptic feedback for page navigation
+    if (hapticFeedback.impactOccurred.isAvailable()) {
+      hapticFeedback.impactOccurred('light');
+    }
+    
     router.push(path);
   }, [router]);
 

@@ -3,6 +3,7 @@
 import { PropsWithChildren } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { hapticFeedback } from '@telegram-apps/sdk-react';
 import { MainLayout } from '../MainLayout/MainLayout';
 
 interface PageProps {
@@ -18,6 +19,12 @@ export function Page({
 
   const handleBack = () => {
     console.log('Navigating back...');
+    
+    // Add haptic feedback for back navigation
+    if (hapticFeedback.impactOccurred.isAvailable()) {
+      hapticFeedback.impactOccurred('light');
+    }
+    
     router.back();
   };
 

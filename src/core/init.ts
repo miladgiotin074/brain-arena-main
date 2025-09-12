@@ -75,7 +75,7 @@ export async function init(options: {
     });
   }
 
-  postEvent('web_app_set_header_color', { color: "#4D1B87" });
+  postEvent('web_app_set_header_color', { color: "#1f2937" });
   postEvent('web_app_expand');
   postEvent('web_app_setup_swipe_behavior', { allow_vertical_swipe: false });
   postEvent('web_app_setup_closing_behavior', { need_confirmation: true });
