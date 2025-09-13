@@ -16,7 +16,7 @@ const navItems: NavItem[] = [
   { key: 'home', path: '/', icon: '🏠', labelKey: 'home' },
   { key: 'chats', path: '/chats', icon: '💬', labelKey: 'chats' },
   { key: 'notifications', path: '/notifications', icon: '🔔', labelKey: 'notifications' },
-  // { key: 'settings', path: '/settings', icon: '⚙️', labelKey: 'settings' }, // Temporarily hidden
+  { key: 'settings', path: '/settings', icon: '⚙️', labelKey: 'settings' },
 ];
 
 export function BottomNavigation() {
