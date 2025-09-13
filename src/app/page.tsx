@@ -184,7 +184,7 @@ export default function Home() {
                       <p className="text-gray-400 text-sm">@ahmad_rezaei</p>
                     </div>
                     <div className="text-right">
-                      <div className="text-blue-400 font-bold text-sm">{t('game.waiting')}</div>
+                      <div className="text-blue-300 font-bold text-sm">{t('game.waiting')}</div>
                     </div>
                   </div>
                   <div className="text-gray-400 text-xs mt-1">{t('game.gameStarted')} 2 {t('game.hoursAgo')}</div>
