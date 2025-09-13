@@ -73,6 +73,10 @@
     "yourMove": "نوبت شما",
     "theirMove": "نوبت آنها",
     "thinking": "در حال فکر",
-    "gameStarted": "بازی شروع شد"
+    "gameStarted": "بازی شروع شد",
+    "finishedGames": "بازی‌های تمام شده",
+    "won": "برد",
+    "lost": "باخت",
+    "finished": "تمام شد"
   }
 }

@@ -53,7 +53,6 @@ export default function Home() {
                 {/* Notification Icon */}
                 <button className="w-10 h-10 bg-gray-700/50 hover:bg-gray-600/50 backdrop-blur-sm rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 border border-gray-600/30">
                   <svg className="w-5 h-5 text-gray-300 hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.73 21a2 2 0 0 1-3.46 0" />
                   </svg>
@@ -165,7 +164,7 @@ export default function Home() {
               onClick={handleStartQuiz}
               className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-4 px-12 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-between group relative overflow-hidden"
             >
-              <span className="text-xl group-hover:rotate-12 group-hover:scale-110 transition-all duration-300">🏆</span>
+              <span className="text-xl group-hover:rotate-12 group-hover:scale-110 transition-all duration-300" style={{animation: 'shakeRotatePause 3.5s ease-in-out infinite'}}>🏆</span>
               <div className="w-2"></div>
               <span className="text-lg font-bold group-hover:translate-x-1 transition-transform duration-300">{t('startNewGame')}</span>
               
@@ -177,7 +176,7 @@ export default function Home() {
             <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-4 space-y-3">
               <div className="flex items-center mb-4">
                 <div className="text-2xl mr-3 rtl:ml-3 rtl:mr-0">
-                  🎯
+                  🎮
                 </div>
                 <h2 className="text-xl font-bold text-white">{t('game.yourTurn')}</h2>
               </div>
@@ -226,53 +225,113 @@ export default function Home() {
           </div>
 
           {/* Opponent Turn Section */}
-          <div className="mt-8">
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-4 space-y-3">
+          <div className="mt-8 opacity-60">
+            <div className="bg-gray-800/30 backdrop-blur-sm rounded-2xl p-4 space-y-3">
               <div className="flex items-center mb-4">
-                <div className="text-2xl mr-3 rtl:ml-3 rtl:mr-0">
+                <div className="text-2xl mr-3 rtl:ml-3 rtl:mr-0 opacity-70">
                   ⏳
                 </div>
-                <h2 className="text-xl font-bold text-white">{t('game.opponentTurn')}</h2>
+                <h2 className="text-xl font-bold text-gray-400">{t('game.opponentTurn')}</h2>
               </div>
-              <div className="bg-gray-700/50 rounded-xl p-4 flex items-center space-x-3 rtl:space-x-reverse">
+              <div className="bg-gray-700/30 rounded-xl p-4 flex items-center space-x-3 rtl:space-x-reverse">
                 <div className="relative">
-                  <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-600 rounded-full flex items-center justify-center text-white font-bold">
+                  <div className="w-12 h-12 bg-gradient-to-r from-orange-500/60 to-red-600/60 rounded-full flex items-center justify-center text-gray-300 font-bold">
                     M
                   </div>
-                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-gray-700"></div>
+                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500/60 rounded-full border-2 border-gray-700"></div>
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-white font-semibold">محمد کریمی</h3>
-                      <p className="text-gray-400 text-sm">@mohammad_karimi</p>
+                      <h3 className="text-gray-400 font-semibold">محمد کریمی</h3>
+                      <p className="text-gray-500 text-sm">@mohammad_karimi</p>
                     </div>
                     <div className="text-right">
-                      <div className="text-orange-400 font-bold text-sm">{t('game.theirMove')}</div>
+                      <div className="text-orange-400/70 font-bold text-sm">{t('game.theirMove')}</div>
                     </div>
                   </div>
-                  <div className="text-gray-400 text-xs mt-1">{t('game.gameStarted')} 1 {t('game.dayAgo')}</div>
+                  <div className="text-gray-500 text-xs mt-1">{t('game.gameStarted')} 1 {t('game.dayAgo')}</div>
+                </div>
+              </div>
+
+              <div className="bg-gray-700/30 rounded-xl p-4 flex items-center space-x-3 rtl:space-x-reverse">
+                <div className="relative">
+                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500/60 to-pink-600/60 rounded-full flex items-center justify-center text-gray-300 font-bold">
+                    R
+                  </div>
+                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-gray-500/60 rounded-full border-2 border-gray-700"></div>
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-gray-400 font-semibold">رضا احمدی</h3>
+                      <p className="text-gray-500 text-sm">@reza_ahmadi</p>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-red-400/70 font-bold text-sm">{t('game.thinking')}</div>
+                    </div>
+                  </div>
+                  <div className="text-gray-500 text-xs mt-1">{t('game.gameStarted')} 3 {t('game.hoursAgo')}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Finished Games Section */}
+          <div className="mt-8">
+            <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-4 space-y-3">
+              <div className="flex items-center mb-4">
+                <div className="text-2xl mr-3 rtl:ml-3 rtl:mr-0">
+                  🏁
+                </div>
+                <h2 className="text-xl font-bold text-white">{t('game.finishedGames')}</h2>
+              </div>
+              
+              <div className="bg-gray-700/50 rounded-xl p-4 flex items-center space-x-3 rtl:space-x-reverse">
+                <div className="relative">
+                  <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center text-white font-bold">
+                    A
+                  </div>
+                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-yellow-500 rounded-full border-2 border-gray-700 flex items-center justify-center">
+                    <span className="text-xs">👑</span>
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-white font-semibold">علی رضایی</h3>
+                      <p className="text-gray-400 text-sm">@ali_rezaei</p>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-green-400 font-bold text-sm">{t('game.won')}</div>
+                      <div className="text-gray-400 text-xs">15-12</div>
+                    </div>
+                  </div>
+                  <div className="text-gray-400 text-xs mt-1">{t('game.finished')} 2 {t('game.hoursAgo')}</div>
                 </div>
               </div>
 
               <div className="bg-gray-700/50 rounded-xl p-4 flex items-center space-x-3 rtl:space-x-reverse">
                 <div className="relative">
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold">
-                    R
+                  <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold">
+                    N
                   </div>
-                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-gray-500 rounded-full border-2 border-gray-700"></div>
+                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-gray-700 flex items-center justify-center">
+                    <span className="text-xs">💔</span>
+                  </div>
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-white font-semibold">رضا احمدی</h3>
-                      <p className="text-gray-400 text-sm">@reza_ahmadi</p>
+                      <h3 className="text-white font-semibold">نیما حسینی</h3>
+                      <p className="text-gray-400 text-sm">@nima_hosseini</p>
                     </div>
                     <div className="text-right">
-                      <div className="text-red-400 font-bold text-sm">{t('game.thinking')}</div>
+                      <div className="text-red-400 font-bold text-sm">{t('game.lost')}</div>
+                      <div className="text-gray-400 text-xs">8-15</div>
                     </div>
                   </div>
-                  <div className="text-gray-400 text-xs mt-1">{t('game.gameStarted')} 3 {t('game.hoursAgo')}</div>
+                  <div className="text-gray-400 text-xs mt-1">{t('game.finished')} 1 {t('game.dayAgo')}</div>
                 </div>
               </div>
             </div>

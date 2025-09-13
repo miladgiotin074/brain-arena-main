@@ -38,7 +38,11 @@
       "yourMove": "Your Move",
       "theirMove": "Their Move",
       "thinking": "Thinking",
-      "gameStarted": "Game started"
+      "gameStarted": "Game started",
+      "finishedGames": "Finished Games",
+      "won": "Won",
+      "lost": "Lost",
+      "finished": "Finished"
     }
   },
   "chats": {
