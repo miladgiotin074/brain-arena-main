@@ -16,7 +16,36 @@
     "welcome": "به آرنای مغز خوش آمدید",
     "subtitle": "دانش خود را در مسابقات هیجان‌انگیز آزمایش کنید",
     "startQuiz": "شروع مسابقه",
-    "selectLanguage": "انتخاب زبان"
+    "startNewGame": "شروع بازی جدید",
+    "challengeYourself": "خود را به چالش بکشید و با دیگران رقابت کنید",
+    "selectLanguage": "انتخاب زبان",
+    "profile": {
+      "guestUser": "کاربر مهمان",
+      "level": "سطح مبتدی",
+      "score": "امتیاز",
+      "coins": "سکه",
+      "rank": "رتبه #--",
+      "thisWeek": "این هفته",
+      "progressToNext": "پیشرفت تا سطح بعدی",
+      "xp": "XP"
+    },
+    "quickStart": {
+      "title": "آماده چالش کشیدن ذهن خود هستید؟"
+    },
+    "categories": {
+      "generalKnowledge": "دانش عمومی",
+      "science": "علوم",
+      "history": "تاریخ",
+      "arts": "هنر"
+    },
+    "stats": {
+      "title": "آمار شما",
+      "gamesPlayed": "بازی‌های انجام شده",
+      "wins": "برد",
+      "points": "امتیاز",
+      "activePlayers": "بازیکنان فعال",
+      "quizCategories": "دسته‌بندی مسابقات"
+    }
   },
   "chats": {
     "title": "چت‌ها",
@@ -34,5 +63,16 @@
     "theme": "تم",
     "notifications": "اعلان‌ها",
     "about": "درباره"
+  },
+  "game": {
+    "hoursAgo": "ساعت پیش",
+    "dayAgo": "روز پیش",
+    "yourTurn": "نوبت شما",
+    "opponentTurn": "نوبت حریف",
+    "waiting": "در انتظار",
+    "yourMove": "نوبت شما",
+    "theirMove": "نوبت آنها",
+    "thinking": "در حال فکر",
+    "gameStarted": "بازی شروع شد"
   }
 }

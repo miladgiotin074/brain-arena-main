@@ -22,7 +22,7 @@ export default function Chats() {
   return (
    <Page back={false}>
       <MainLayout>
-        <div className="p-6">
+        <div className="p-3">
 
           {isLoading ? (
             <div className="space-y-4 animate-fade-in">

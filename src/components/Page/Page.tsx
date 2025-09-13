@@ -32,7 +32,7 @@ export function Page({
     <MainLayout showBottomNav={!back}>
       <div className="min-h-screen flex flex-col">
         {back && (
-          <header className="flex items-center p-4 mb-2 animate-slide-down">
+          <header className="flex items-center p-2 mb-2 animate-slide-down">
             <button
               onClick={handleBack}
               className="flex items-center text-blue-400 hover:text-blue-300 transition-smooth hover:scale-105 active:scale-95 glass px-3 py-2 rounded-lg"
@@ -42,7 +42,7 @@ export function Page({
             </button>
           </header>
         )}
-        <div className="flex-1 px-4 pb-4">
+        <div className="flex-1 px-2 pb-4">
           <div className="animate-fade-in">
             {children}
           </div>

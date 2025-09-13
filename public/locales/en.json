@@ -16,7 +16,30 @@
     "welcome": "Welcome to Brain Arena",
     "subtitle": "Test your knowledge in exciting quiz competitions",
     "startQuiz": "Start Quiz",
-    "selectLanguage": "Select Language"
+    "startNewGame": "Start New Game",
+    "challengeYourself": "Challenge yourself and compete with others",
+    "selectLanguage": "Select Language",
+    "profile": {
+      "guestUser": "Guest User",
+      "level": "Beginner Level",
+      "score": "Score",
+      "coins": "Coins",
+      "rank": "Rank #--",
+      "thisWeek": "This Week",
+      "progressToNext": "Progress to next level",
+      "xp": "XP"
+    },
+    "game": {
+      "hoursAgo": "hours ago",
+      "dayAgo": "day ago",
+      "yourTurn": "Your Turn",
+      "opponentTurn": "Opponent's Turn",
+      "waiting": "Waiting",
+      "yourMove": "Your Move",
+      "theirMove": "Their Move",
+      "thinking": "Thinking",
+      "gameStarted": "Game started"
+    }
   },
   "chats": {
     "title": "Chats",

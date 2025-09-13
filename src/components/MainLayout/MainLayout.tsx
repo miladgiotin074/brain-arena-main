@@ -18,7 +18,7 @@ export function MainLayout({
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)]" />
       </div>
       
-      <main className={`${showBottomNav ? 'pb-20' : 'pb-2'} pt-2 px-1 relative z-10`}>
+      <main className={`${showBottomNav ? 'pb-20' : 'pb-2'} pt-2 px-0.5 relative z-10`}>
         <div className="max-w-md mx-auto">
           {children}
         </div>

@@ -37,7 +37,7 @@ export default function Settings() {
   return (
     <Page back={false}>
       <MainLayout>
-        <div className="min-h-screen p-4 space-y-6">
+        <div className="min-h-screen p-2 space-y-6">
 
 
           {/* Settings Items */}

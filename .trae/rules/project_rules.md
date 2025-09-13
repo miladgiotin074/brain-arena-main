@@ -22,10 +22,13 @@
 
 🌐 Localization:
 - Use `i18next` (or similar) for all strings.
-- Never hardcode strings; always use translation keys.
+- **NEVER hardcode strings; ALWAYS use translation keys from locale files.**
+- All text content must use `t('key')` function for translations.
+- Add new translation keys to both `en.json` and `fa.json` files.
 - Settings page must allow switching between English & Persian.
 - Direction must be `rtl` for Persian and `ltr` for English.
 - Language change must apply in real-time across all components.
+- **Rule: Any hardcoded text is strictly forbidden - use i18n keys only.**
 
 🎨 UI/UX Standards:
 - Responsive mobile-first design only.
