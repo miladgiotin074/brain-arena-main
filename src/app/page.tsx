@@ -48,6 +48,29 @@ export default function Home() {
             <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-purple-500/15 to-transparent rounded-full blur-lg"></div>
             
             <div className="relative z-10">
+              {/* Top Right Icons */}
+              <div className="absolute top-0 right-0 flex items-center space-x-2 rtl:space-x-reverse">
+                {/* Notification Icon */}
+                <button className="w-10 h-10 bg-gray-700/50 hover:bg-gray-600/50 backdrop-blur-sm rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 border border-gray-600/30">
+                  <svg className="w-5 h-5 text-gray-300 hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.73 21a2 2 0 0 1-3.46 0" />
+                  </svg>
+                  {/* Notification Badge */}
+                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
+                    <span className="text-xs font-bold text-white">3</span>
+                  </div>
+                </button>
+                
+                {/* Sound Mute/Unmute Icon */}
+                <button className="w-10 h-10 bg-gray-700/50 hover:bg-gray-600/50 backdrop-blur-sm rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 border border-gray-600/30">
+                  <svg className="w-5 h-5 text-gray-300 hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M11 5L6 9H2v6h4l5 4V5z" />
+                  </svg>
+                </button>
+              </div>
+              
               {/* Header Section */}
               <div className="flex items-start space-x-3 rtl:space-x-reverse mb-4">
                 <div className="relative">
@@ -88,18 +111,6 @@ export default function Home() {
                       </svg>
                     </p>
                   )}
-                  
-                  {/* Quick Stats */}
-                  <div className="flex items-center space-x-3 rtl:space-x-reverse text-sm">
-                    <div className="flex items-center space-x-1 rtl:space-x-reverse text-green-400">
-                      <span className="text-sm">🏆</span>
-                      <span className="font-semibold text-xs">#1</span>
-                    </div>
-                    <div className="flex items-center space-x-1 rtl:space-x-reverse text-blue-400">
-                      <span className="text-sm">⚡</span>
-                      <span className="font-semibold text-xs">15 {t('profile.thisWeek')}</span>
-                    </div>
-                  </div>
                 </div>
               </div>
               
