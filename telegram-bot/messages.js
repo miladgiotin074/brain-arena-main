@@ -6,7 +6,16 @@ module.exports = {
     webhookHttpsRequired: 'Error: Webhook URL must use HTTPS protocol.',
     webhookSetError: 'Error setting webhook:',
     webAppDataParse: 'Error parsing web app data:',
-    botError: 'Bot error:'
+    botError: 'Bot error:',
+    dbConnectionFailed: 'MongoDB connection failed:',
+    dbError: 'Database error:',
+    userOperationFailed: 'User operation failed:',
+    userNotFound: 'User not found in database',
+    userUpdateFailed: 'Failed to update user:',
+    userFetchFailed: 'Failed to fetch user:',
+    coinUpdateFailed: 'Failed to update coins:',
+    xpUpdateFailed: 'Failed to update XP:',
+    scoreUpdateFailed: 'Failed to update score:'
   },
 
   // Console messages
@@ -17,7 +26,16 @@ module.exports = {
     webhookSetSuccess: '✅ Webhook set successfully:',
     botRunning: '🤖 Telegram Bot is running...',
     webAppUrl: '📱 Web App URL:',
-    webAppDataReceived: '📊 Web app data received:'
+    webAppDataReceived: '📊 Web app data received:',
+    dbConnected: 'MongoDB connected successfully',
+    dbDisconnected: 'MongoDB disconnected',
+    userFound: 'User {userId} found in database',
+    userCreated: 'New user {userId} created in database',
+    userUpdated: 'User {userId} updated successfully',
+    coinsAdded: '{amount} coins added to user {userId}',
+    xpAdded: '{amount} XP added to user {userId}',
+    scoreAdded: '{amount} score added to user {userId}',
+    levelUp: 'User {userId} leveled up to level {level}!'
   },
 
   // Bot responses

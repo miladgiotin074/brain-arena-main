@@ -1,6 +1,8 @@
 const TelegramBot = require('node-telegram-bot-api');
 const express = require('express');
 const messages = require('./messages');
+const { connectDB } = require('./database');
+const { findOrCreateUser } = require('./services/userService');
 require('dotenv').config();
 
 // Bot configuration from environment variables
@@ -17,6 +19,9 @@ if (!token || token === 'YOUR_BOT_TOKEN') {
   console.error(messages.errors.createEnvFile);
   process.exit(1);
 }
+
+// Connect to MongoDB
+connectDB();
 
 // Initialize bot with appropriate mode
 let bot;
@@ -69,29 +74,50 @@ async function setupWebhook() {
 }
 
 // Handle /start command
-bot.onText(/\/start/, (msg) => {
+bot.onText(/\/start/, async (msg) => {
   const chatId = msg.chat.id;
-  const firstName = msg.from.first_name || 'User';
   
-  const welcomeMessage = messages.responses.welcome(firstName);
-  
-  const options = {
-    parse_mode: 'Markdown',
-    reply_markup: {
-      inline_keyboard: [[
-        {
-          text: messages.responses.startButton,
-          web_app: { url: webAppUrl }
-        }
-      ]]
-    }
-  };
-  
-  bot.sendMessage(chatId, welcomeMessage, options);
+  try {
+    // Find or create user in database
+    const user = await findOrCreateUser(msg.from);
+    
+    const firstName = msg.from.first_name || 'User';
+    const welcomeMessage = messages.responses.welcome(firstName);
+    
+    const options = {
+      parse_mode: 'Markdown',
+      reply_markup: {
+        inline_keyboard: [[
+          {
+            text: messages.responses.startButton,
+            web_app: { url: webAppUrl }
+          }
+        ]]
+      }
+    };
+    
+    bot.sendMessage(chatId, welcomeMessage, options);
+  } catch (error) {
+    console.error(messages.errors.userOperationFailed, error.message);
+    const firstName = msg.from.first_name || 'User';
+    const welcomeMessage = messages.responses.welcome(firstName);
+    
+    bot.sendMessage(chatId, welcomeMessage, {
+      parse_mode: 'Markdown',
+      reply_markup: {
+        inline_keyboard: [[
+          {
+            text: messages.responses.startButton,
+            web_app: { url: webAppUrl }
+          }
+        ]]
+      }
+    });
+  }
 });
 
 // Handle any other messages
-bot.on('message', (msg) => {
+bot.on('message', async (msg) => {
   const chatId = msg.chat.id;
   const text = msg.text;
   
@@ -100,22 +126,45 @@ bot.on('message', (msg) => {
     return;
   }
   
-  // For any other message, show the web app button
-  const message = messages.responses.playMessage;
-  
-  const options = {
-    parse_mode: 'Markdown',
-    reply_markup: {
-      inline_keyboard: [[
-        {
-          text: messages.responses.startButton,
-          web_app: { url: webAppUrl }
-        }
-      ]]
-    }
-  };
-  
-  bot.sendMessage(chatId, message, options);
+  try {
+    // Find or create user in database
+    const user = await findOrCreateUser(msg.from);
+    
+    // For any other message, show the web app button
+    const message = messages.responses.playMessage;
+    
+    const options = {
+      parse_mode: 'Markdown',
+      reply_markup: {
+        inline_keyboard: [[
+          {
+            text: messages.responses.startButton,
+            web_app: { url: webAppUrl }
+          }
+        ]]
+      }
+    };
+    
+    bot.sendMessage(chatId, message, options);
+  } catch (error) {
+    console.error(messages.errors.userOperationFailed, error.message);
+    // For any other message, show the web app button
+    const message = messages.responses.playMessage;
+    
+    const options = {
+      parse_mode: 'Markdown',
+      reply_markup: {
+        inline_keyboard: [[
+          {
+            text: messages.responses.startButton,
+            web_app: { url: webAppUrl }
+          }
+        ]]
+      }
+    };
+    
+    bot.sendMessage(chatId, message, options);
+  }
 });
 // Error handling
 bot.on('error', (error) => {
