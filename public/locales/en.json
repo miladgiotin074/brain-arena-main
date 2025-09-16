@@ -19,6 +19,7 @@
     "startNewGame": "Start New Game",
     "challengeYourself": "Challenge yourself and compete with others",
     "selectLanguage": "Select Language",
+    "loading": "Loading...",
     "profile": {
       "guestUser": "Guest User",
       "level": "Beginner Level",
@@ -55,11 +56,29 @@
     "noNotifications": "No new notifications",
     "markAllRead": "Mark all as read"
   },
-  "settings": {
+"settings": {
     "title": "Settings",
     "language": "Language",
     "theme": "Theme",
     "notifications": "Notifications",
+    "privacy": "Privacy",
     "about": "About"
+  },
+  "auth": {
+    "error": {
+      "signatureInvalid": "Authentication Failed",
+      "signatureInvalidDesc": "The authentication signature is invalid. Please restart the app from Telegram.",
+      "authDateInvalid": "Authentication Expired",
+      "authDateInvalidDesc": "The authentication date is invalid or missing. Please restart the app.",
+      "expired": "Session Expired",
+      "expiredDesc": "Your session has expired. Please restart the app from Telegram.",
+      "signatureMissing": "Missing Authentication",
+      "signatureMissingDesc": "Authentication signature is missing. Please restart the app from Telegram.",
+      "unknown": "Authentication Error",
+      "unknownDesc": "An unknown authentication error occurred. Please try again.",
+      "technicalDetails": "Technical Details",
+      "retry": "Try Again",
+      "contactSupport": "If the problem persists, please contact support."
+    }
   }
 }

@@ -182,9 +182,11 @@ export function UserProvider({ children }: UserProviderProps) {
     const initializeUser = async () => {
       try {
         // Check if we have Telegram init data
+        console.log('🔍 InitData state:', initDataState);
         if (initDataState && initDataState.user) {
           const telegramUser = initDataState.user;
           console.log('🔐 Authenticating with Telegram data:', telegramUser);
+          console.log('📝 Telegram user firstName:', telegramUser.first_name);
           
           // Convert Telegram user data to TelegramUser format
           const telegramData: TelegramUser = {

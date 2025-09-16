@@ -9,12 +9,14 @@ import Image from 'next/image';
 import { Page } from '@/components/Page';
 import { MainLayout } from '@/components/MainLayout';
 import { useAuth } from '@/hooks/useAuth';
+import { useAuthValidation } from '@/hooks/useAuthValidation';
 
 export default function Home() {
   const router = useRouter();
   const t = useTranslations('home');
   const initDataUser = useSignal(initData.user);
   const { user, isLoading, error } = useAuth();
+  const authValidation = useAuthValidation();
 
   const handleStartQuiz = useCallback(() => {
     console.log('Starting quiz...');
@@ -37,6 +39,22 @@ export default function Home() {
     
     router.push('/second-page');
   }, [router]);
+
+  // Show loading state while auth validation is in progress
+  if (authValidation.isLoading) {
+    return (
+      <Page back={false}>
+        <MainLayout>
+          <div className="min-h-screen p-3 flex items-center justify-center">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+              <p className="text-gray-400">{t('loading')}</p>
+            </div>
+          </div>
+        </MainLayout>
+      </Page>
+    );
+  }
 
   return (
     <Page back={false}>

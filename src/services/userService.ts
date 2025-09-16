@@ -1,4 +1,5 @@
 import { User, TelegramUser, UpdateUserRequest, AddCoinsRequest, AddXPRequest, AddScoreRequest, AuthResponse } from '@/types/user';
+import { authenticatedRequest } from '@/lib/telegramAuth';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
@@ -10,58 +11,34 @@ class UserService {
   }
 
   async authenticateUser(telegramData: TelegramUser): Promise<AuthResponse> {
-    const response = await fetch(`${this.baseURL}/users`, {
+    const response = await authenticatedRequest(`${this.baseURL}/users`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify({ telegramData }),
     });
-
-    if (!response.ok) {
-      throw new Error('Authentication failed');
-    }
 
     return response.json();
   }
 
   async getUserById(userId: string): Promise<User> {
-    const response = await fetch(`${this.baseURL}/users?userId=${userId}`);
-    
-    if (!response.ok) {
-      throw new Error('Failed to fetch user');
-    }
-
+    const response = await authenticatedRequest(`${this.baseURL}/users?userId=${userId}`);
     const data = await response.json();
     return data.user;
   }
 
   async getUserByTelegramId(telegramId: number): Promise<User> {
-    const response = await fetch(`${this.baseURL}/users?telegramId=${telegramId}`);
-    
-    if (!response.ok) {
-      throw new Error('Failed to fetch user');
-    }
-
+    const response = await authenticatedRequest(`${this.baseURL}/users?telegramId=${telegramId}`);
     const data = await response.json();
     return data.user;
   }
 
   async updateUser(request: UpdateUserRequest): Promise<User> {
-    const response = await fetch(`${this.baseURL}/users`, {
+    const response = await authenticatedRequest(`${this.baseURL}/users`, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify({
         userId: request.userId,
         ...request.updates
       }),
     });
-
-    if (!response.ok) {
-      throw new Error('Failed to update user');
-    }
 
     const data = await response.json();
     return data.user;
@@ -98,11 +75,8 @@ class UserService {
   }
 
   async findOrCreateUser(telegramUser: TelegramUser): Promise<{ user: User; isNewUser: boolean }> {
-    const response = await fetch(`${this.baseURL}/users`, {
+    const response = await authenticatedRequest(`${this.baseURL}/users`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify({
         telegramId: telegramUser.id,
         firstName: telegramUser.first_name,
@@ -113,10 +87,6 @@ class UserService {
         photoUrl: telegramUser.photo_url
       }),
     });
-
-    if (!response.ok) {
-      throw new Error('Failed to authenticate user');
-    }
 
     return response.json();
   }

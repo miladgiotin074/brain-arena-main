@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/mongodb';
 import User from '@/models/User';
+import { validateTelegramInitData } from '@/lib/middleware/initDataMiddleware';
 
 // GET /api/users - Get user by ID or Telegram ID
 export async function GET(request: NextRequest) {
@@ -47,27 +48,58 @@ export async function POST(request: NextRequest) {
   try {
     await connectToDatabase();
     
-    const body = await request.json();
-    const { telegramId, firstName, lastName, username, languageCode, isPremium, photoUrl } = body;
-    
-    if (!telegramId) {
+    // Get bot token from environment variables
+    const botToken = process.env.TELEGRAM_BOT_TOKEN;
+    if (!botToken) {
       return NextResponse.json(
-        { error: 'telegramId is required' },
+        { error: 'Bot token not configured' },
+        { status: 500 }
+      );
+    }
+    
+    // Validate Telegram init data
+    const validation = await validateTelegramInitData(request, botToken);
+    
+    // If validation failed, return the error response
+    if (validation instanceof NextResponse) {
+      return validation;
+    }
+    
+    // Extract user data from validated init data
+    const telegramUser = validation.user;
+    if (!telegramUser) {
+      return NextResponse.json(
+        { error: 'No user data in init data' },
         { status: 400 }
       );
     }
     
+    console.log('Telegram user data:', JSON.stringify(telegramUser, null, 2));
+    
+    const { 
+      id: telegramId, 
+      first_name: firstName, 
+      last_name: lastName, 
+      username, 
+      language_code: languageCode, 
+      is_premium: isPremium, 
+      photo_url: photoUrl 
+    } = telegramUser;
+    
+    console.log('Extracted firstName:', firstName);
+    console.log('Extracted telegramId:', telegramId);
+
     // Check if user exists
     let user = await User.findByTelegramId(telegramId);
     
     if (user) {
       // Update existing user with latest Telegram data
-      user.firstName = firstName || user.firstName;
-      user.lastName = lastName || user.lastName;
-      user.username = username || user.username;
-      user.languageCode = languageCode || user.languageCode;
-      user.isPremium = isPremium !== undefined ? isPremium : user.isPremium;
-      user.photoUrl = photoUrl || user.photoUrl;
+      user.firstName = (typeof firstName === 'string' ? firstName : undefined) || user.firstName;
+      user.lastName = (typeof lastName === 'string' ? lastName : undefined) || user.lastName;
+      user.username = (typeof username === 'string' ? username : undefined) || user.username;
+      user.languageCode = (typeof languageCode === 'string' ? languageCode : undefined) || user.languageCode;
+      user.isPremium = (typeof isPremium === 'boolean' ? isPremium : undefined) ?? user.isPremium;
+      user.photoUrl = (typeof photoUrl === 'string' ? photoUrl : undefined) || user.photoUrl;
       user.lastActive = new Date();
       
       await user.save();
@@ -75,7 +107,7 @@ export async function POST(request: NextRequest) {
       // Create new user with default values
       user = new User({
         telegramId,
-        firstName: firstName || 'User',
+        firstName: firstName || '',
         lastName: lastName || '',
         username: username || '',
         languageCode: languageCode || 'en',
