@@ -1,9 +1,11 @@
 'use client';
 
-import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, ReactNode, useCallback } from 'react';
 import { initData, useSignal } from '@telegram-apps/sdk-react';
 import { User, UserContextType, TelegramUser } from '@/types/user';
 import { userService } from '@/services/userService';
+import { useRouter } from 'next/navigation';
+import { useSocket } from './SocketContext';
 
 // User state type
 interface UserState {
@@ -61,6 +63,8 @@ interface UserProviderProps {
 
 export function UserProvider({ children }: UserProviderProps) {
   const [state, dispatch] = useReducer(userReducer, initialState);
+  const { isConnected } = useSocket();
+  const router = useRouter();
 
   // Login function
   const login = async (telegramUser: TelegramUser): Promise<void> => {
@@ -180,6 +184,12 @@ export function UserProvider({ children }: UserProviderProps) {
   // Initialize user from Telegram data
   useEffect(() => {
     const initializeUser = async () => {
+      // Wait for socket connection before initializing user
+      if (!isConnected) {
+        console.log('⏳ Waiting for socket connection...');
+        return;
+      }
+      
       try {
         // Check if we have Telegram init data
         console.log('🔍 InitData state:', initDataState);
@@ -265,7 +275,7 @@ export function UserProvider({ children }: UserProviderProps) {
     };
 
     initializeUser();
-  }, [initDataState]);
+  }, [initDataState, isConnected]);
 
   // Retry function to reinitialize user
   const retry = (): void => {

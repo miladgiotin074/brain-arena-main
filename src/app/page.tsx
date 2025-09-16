@@ -56,6 +56,23 @@ export default function Home() {
     );
   }
 
+  // If auth validation failed, don't render the page content
+  // The useAuthValidation hook will handle the redirect to /auth-error
+  if (!authValidation.isValid) {
+    return (
+      <Page back={false}>
+        <MainLayout>
+          <div className="min-h-screen p-3 flex items-center justify-center">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500 mx-auto mb-4"></div>
+              <p className="text-gray-400">Authentication failed...</p>
+            </div>
+          </div>
+        </MainLayout>
+      </Page>
+    );
+  }
+
   return (
     <Page back={false}>
       <MainLayout>

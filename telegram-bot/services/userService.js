@@ -8,28 +8,31 @@ const messages = require('../messages');
  */
 const findOrCreateUser = async (telegramUser) => {
   try {
-    const { id: userId, first_name: firstName, last_name: lastName, username } = telegramUser;
+    const { telegramId, firstName, lastName, username, languageCode, isPremium, photoUrl } = telegramUser;
     
     // Try to find existing user
-    let user = await User.findByUserId(userId);
+    let user = await User.findByTelegramId(telegramId);
     
     if (user) {
       // Update last activity and return existing user
       await user.updateActivity();
-      console.log(messages.console.userFound.replace('{userId}', userId));
-      return user;
+      console.log(messages.console.userFound.replace('{userId}', telegramId));
+      return { user, isNewUser: false };
     }
     
     // Create new user if not found
     user = await User.createUser({
-      userId,
+      telegramId,
       firstName,
       lastName: lastName || '',
-      username: username || ''
+      username: username || '',
+      languageCode: languageCode || 'en',
+      isPremium: isPremium || false,
+      photoUrl: photoUrl || ''
     });
     
-    console.log(messages.console.userCreated.replace('{userId}', userId));
-    return user;
+    console.log(messages.console.userCreated.replace('{userId}', telegramId));
+    return { user, isNewUser: true };
     
   } catch (error) {
     console.error(messages.errors.userOperationFailed, error.message);
@@ -45,7 +48,7 @@ const findOrCreateUser = async (telegramUser) => {
  */
 const updateUser = async (userId, updateData) => {
   try {
-    const user = await User.findByUserId(userId);
+    const user = await User.findByTelegramId(userId);
     
     if (!user) {
       throw new Error(messages.errors.userNotFound);
@@ -70,7 +73,7 @@ const updateUser = async (userId, updateData) => {
  */
 const getUserById = async (userId) => {
   try {
-    const user = await User.findByUserId(userId);
+    const user = await User.findByTelegramId(userId);
     return user;
   } catch (error) {
     console.error(messages.errors.userFetchFailed, error.message);

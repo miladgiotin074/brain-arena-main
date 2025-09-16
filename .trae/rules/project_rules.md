@@ -104,6 +104,12 @@ Follow modern naming conventions.
 
 Prioritize mobile performance and UX polish.
 
+🔧 Development Commands:
+
+- **ALWAYS use `npm run dev:https` for running the project in development mode.**
+- Never use `npm run dev` - always use the HTTPS version for Telegram WebApp compatibility.
+- HTTPS is required for proper Telegram WebApp functionality and Socket.io connections.
+
 🔌 Backend Communication Architecture:
 
 - **Socket.io Integration**: All real-time communication with backend must use Socket.io.
