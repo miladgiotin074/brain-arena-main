@@ -4,13 +4,14 @@ import { getLocale } from 'next-intl/server';
 
 import { Root } from '@/components/Root/Root';
 import { I18nProvider } from '@/core/i18n/provider';
+import { UserProvider } from '@/contexts/UserContext';
 
 
 import 'normalize.css/normalize.css';
 import './_assets/globals.css';
 
 export const metadata: Metadata = {
-  title: 'Brain Arena Bot',
+  title: 'Quiz Of The Kings',
   description: 'A Telegram web app for engaging in intelligence and general knowledge competitions',
 };
 
@@ -21,9 +22,12 @@ export default async function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang={locale} dir={direction} suppressHydrationWarning>
       <body className='bg-[#1a1a1a]'>
-        <I18nProvider>
-          <Root>{children}</Root>
+                <I18nProvider>
+          <UserProvider>
+            <Root>{children}</Root>
+          </UserProvider>
         </I18nProvider>
+
       </body>
     </html>
   );

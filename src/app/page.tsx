@@ -5,13 +5,16 @@ import { useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import { hapticFeedback, initData, useSignal } from '@telegram-apps/sdk-react';
 import { Play, PlayIcon, PlaySquare } from 'lucide-react';
+import Image from 'next/image';
 import { Page } from '@/components/Page';
 import { MainLayout } from '@/components/MainLayout';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function Home() {
   const router = useRouter();
   const t = useTranslations('home');
   const initDataUser = useSignal(initData.user);
+  const { user, isLoading, error } = useAuth();
 
   const handleStartQuiz = useCallback(() => {
     console.log('Starting quiz...');
@@ -74,10 +77,12 @@ export default function Home() {
               <div className="flex items-start space-x-3 rtl:space-x-reverse mb-4">
                 <div className="relative">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-xl flex items-center justify-center overflow-hidden shadow-lg ring-2 ring-white/10">
-                    {initDataUser?.photo_url ? (
-                      <img 
-                        src={initDataUser?.photo_url} 
+                    {user?.photoUrl ? (
+                      <Image 
+                        src={user.photoUrl} 
                         alt="Profile" 
+                        width={64}
+                        height={64}
                         className="w-full h-full object-cover rounded-xl"
                       />
                     ) : (
@@ -93,18 +98,22 @@ export default function Home() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center space-x-2 rtl:space-x-reverse mb-1">
                     <h3 className="text-lg font-bold text-white truncate">
-                      {initDataUser ? 
-                        `${initDataUser?.first_name}${initDataUser?.last_name ? ` ${initDataUser?.last_name}` : ''}` : 
+                      {isLoading ? (
+                        <div className="h-6 bg-gray-600 rounded animate-pulse w-32"></div>
+                      ) : user ? 
+                        `${user.firstName}${user.lastName ? ` ${user.lastName}` : ''}` : 
                         t('profile.guestUser')
                       }
                     </h3>
-                    <div className="flex-shrink-0 px-2 py-0.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full">
-                      <span className="text-xs font-semibold text-white">PRO</span>
-                    </div>
+                    {user?.isPremium && (
+                      <div className="flex-shrink-0 px-2 py-0.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full">
+                        <span className="text-xs font-semibold text-white">PRO</span>
+                      </div>
+                    )}
                   </div>
-                  {initDataUser?.username && (
+                  {user?.username && (
                     <p className="text-sm text-blue-400 mb-2 flex items-center space-x-1 rtl:space-x-reverse">
-                      <span>@{initDataUser.username}</span>
+                      <span>@{user.username}</span>
                       <svg className="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                       </svg>
@@ -119,7 +128,13 @@ export default function Home() {
                   <div className="flex items-center justify-center mb-0.5">
                     <span className="text-sm">🪙</span>
                   </div>
-                  <div className="text-sm font-bold text-yellow-400 mb-0.5">0</div>
+                  <div className="text-sm font-bold text-yellow-400 mb-0.5">
+                    {isLoading ? (
+                      <div className="h-4 bg-gray-600 rounded animate-pulse w-8 mx-auto"></div>
+                    ) : (
+                      user?.coins || 0
+                    )}
+                  </div>
                   <div className="text-xs text-slate-300 font-medium">{t('profile.coins')}</div>
                 </div>
                 
@@ -127,7 +142,13 @@ export default function Home() {
                   <div className="flex items-center justify-center mb-0.5">
                     <span className="text-sm">⭐</span>
                   </div>
-                  <div className="text-sm font-bold text-blue-400 mb-0.5">10</div>
+                  <div className="text-sm font-bold text-blue-400 mb-0.5">
+                    {isLoading ? (
+                      <div className="h-4 bg-gray-600 rounded animate-pulse w-8 mx-auto"></div>
+                    ) : (
+                      user?.totalScore || 0
+                    )}
+                  </div>
                   <div className="text-xs text-slate-300 font-medium">{t('profile.score')}</div>
                 </div>
                 
@@ -135,7 +156,13 @@ export default function Home() {
                   <div className="flex items-center justify-center mb-0.5">
                     <span className="text-sm">🎯</span>
                   </div>
-                  <div className="text-sm font-bold text-green-400 mb-0.5">1</div>
+                  <div className="text-sm font-bold text-green-400 mb-0.5">
+                    {isLoading ? (
+                      <div className="h-4 bg-gray-600 rounded animate-pulse w-8 mx-auto"></div>
+                    ) : (
+                      user?.level || 1
+                    )}
+                  </div>
                   <div className="text-xs text-slate-300 font-medium">{t('profile.level')}</div>
                 </div>
               </div>
@@ -144,15 +171,33 @@ export default function Home() {
               <div className="bg-slate-800/50 backdrop-blur-sm rounded-lg p-3 border border-slate-700/50">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-medium text-slate-300">{t('profile.progressToNext')}</span>
-                  <span className="text-xs font-bold text-white">30/100 {t('profile.xp')}</span>
+                  <span className="text-xs font-bold text-white">
+                    {isLoading ? (
+                      <div className="h-3 bg-gray-600 rounded animate-pulse w-16"></div>
+                    ) : (
+                      `${user ? user.xp % 1000 : 0}/1000 ${t('profile.xp')}`
+                    )}
+                  </span>
                 </div>
                 <div className="relative h-3 bg-slate-700 rounded-full overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full" style={{width: '30%'}}></div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/50 via-purple-500/50 to-pink-500/50 rounded-full animate-pulse" style={{width: '30%'}}></div>
+                  {isLoading ? (
+                    <div className="absolute inset-0 bg-gray-600 rounded-full animate-pulse"></div>
+                  ) : (
+                    <>
+                      <div 
+                        className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full" 
+                        style={{width: `${user ? (user.xp % 1000) / 10 : 0}%`}}
+                      ></div>
+                      <div 
+                        className="absolute inset-0 bg-gradient-to-r from-blue-500/50 via-purple-500/50 to-pink-500/50 rounded-full animate-pulse" 
+                        style={{width: `${user ? (user.xp % 1000) / 10 : 0}%`}}
+                      ></div>
+                    </>
+                  )}
                 </div>
                 <div className="flex justify-between mt-2 text-xs text-slate-400">
-                  <span>{t('profile.level')} 1</span>
-                  <span>{t('profile.level')} 2</span>
+                  <span>{t('profile.level')} {user?.level || 1}</span>
+                  <span>{t('profile.level')} {(user?.level || 1) + 1}</span>
                 </div>
               </div>
             </div>

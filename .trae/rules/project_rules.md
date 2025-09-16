@@ -104,6 +104,20 @@ Follow modern naming conventions.
 
 Prioritize mobile performance and UX polish.
 
+🔌 Backend Communication Architecture:
+
+- **Socket.io Integration**: All real-time communication with backend must use Socket.io.
+- **Connection Management**: Establish persistent WebSocket connection on app initialization.
+- **Event-Based Communication**: Use event-driven architecture for all data exchange.
+- **Real-time Features**: Quiz games, notifications, chat messages via WebSocket events.
+- **Fallback Strategy**: HTTP requests only for initial authentication and critical operations.
+- **Connection States**: Handle connecting, connected, disconnected, and reconnecting states.
+- **Error Handling**: Implement robust error handling for socket connection failures.
+- **Auto-Reconnection**: Automatic reconnection with exponential backoff strategy.
+- **Message Queue**: Queue messages when offline and send when connection restored.
+- **Typing Indicators**: Real-time typing indicators in chat using socket events.
+- **Live Updates**: Game scores, leaderboards, and user status via socket broadcasts.
+
 🚀 First Steps To Implement:
 
 Create main layout with bottom navigation.
@@ -119,3 +133,5 @@ Implement RTL/LTR switching based on language.
 Add Skeleton loaders for Home & Notifications pages.
 
 Use consistent dark theme throughout the app.
+
+Implement Socket.io client connection and event handlers.
