@@ -1,0 +1,74 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "retry": "Retry",
+    "refresh": "Refresh",
+    "back": "Back",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close"
+  },
+  "navigation": {
+    "home": "Home",
+    "chats": "Chats",
+    "notifications": "Notifications",
+    "settings": "Settings"
+  },
+  "game": {
+    "availableGames": "Available Games",
+    "players": "players",
+    "join": "Join",
+    "joining": "Joining...",
+    "category": "Category",
+    "difficulty": "Difficulty",
+    "refresh": "Refresh",
+    "retry": "Try Again",
+    "status": {
+      "waiting": "Waiting",
+      "active": "Active",
+      "finished": "Finished"
+    },
+    "error": {
+      "title": "Failed to load games"
+    },
+    "noGames": {
+      "title": "No games available",
+      "description": "There are no games available at the moment. Try refreshing the page."
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "notifications": "Notifications",
+    "account": "Account",
+    "about": "About",
+    "version": "Version",
+    "support": "Support"
+  },
+  "home": {
+    "welcome": "Welcome to Brain Arena",
+    "subtitle": "Challenge your mind with exciting quizzes",
+    "playNow": "Play Now",
+    "leaderboard": "Leaderboard",
+    "achievements": "Achievements"
+  },
+  "chat": {
+    "title": "Chats",
+    "noChats": "No chats yet",
+    "startChat": "Start a new chat",
+    "typing": "typing...",
+    "online": "online",
+    "offline": "offline"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "noNotifications": "No notifications",
+    "markAllRead": "Mark all as read",
+    "clear": "Clear all"
+  }
+}

@@ -115,11 +115,19 @@ io.use(async (socket, next) => {
       return next(new Error('Authentication failed: No init data provided'));
     }
     
-    // در development mode اجازه اتصال بدون validation واقعی
-    if (process.env.NODE_ENV === 'development') {
-      console.log('🔧 Development mode: Allowing connection');
-      socket.userId = 'dev_user';
-      socket.userData = { development: true };
+    console.log('🔍 Received initData:', initData.substring(0, 100) + '...');
+    
+    // Handle development mode or mock data
+    if (process.env.NODE_ENV === 'development' || initData.includes('query_id=dev')) {
+      console.log('🔧 Development mode: Allowing connection with mock data');
+      socket.userId = 'dev_user_999999999';
+      socket.userData = { 
+        development: true,
+        id: 999999999,
+        first_name: 'Dev',
+        last_name: 'User',
+        username: 'dev_user'
+      };
       return next();
     }
     
@@ -219,6 +227,92 @@ io.on('connection', (socket) => {
       console.error('❌ Update user error:', error);
       socket.emit('user:updateError', {
         error: error.message
+      });
+    }
+  });
+
+  // Sample games data (in production, this would come from database)
+  const sampleGames = [
+    {
+      id: 'game_1',
+      title: 'General Knowledge Quiz',
+      titleFa: 'کوییز دانش عمومی',
+      description: 'Test your general knowledge',
+      descriptionFa: 'دانش عمومی خود را آزمایش کنید',
+      category: 'general',
+      categoryFa: 'عمومی',
+      difficulty: 'medium',
+      difficultyFa: 'متوسط',
+      playersCount: 0,
+      maxPlayers: 10,
+      status: 'waiting',
+      createdAt: new Date().toISOString()
+    },
+    {
+      id: 'game_2',
+      title: 'Science Quiz',
+      titleFa: 'کوییز علوم',
+      description: 'Challenge your science knowledge',
+      descriptionFa: 'دانش علمی خود را به چالش بکشید',
+      category: 'science',
+      categoryFa: 'علوم',
+      difficulty: 'hard',
+      difficultyFa: 'سخت',
+      playersCount: 3,
+      maxPlayers: 8,
+      status: 'active',
+      createdAt: new Date().toISOString()
+    },
+    {
+      id: 'game_3',
+      title: 'History Quiz',
+      titleFa: 'کوییز تاریخ',
+      description: 'Explore historical facts',
+      descriptionFa: 'حقایق تاریخی را کشف کنید',
+      category: 'history',
+      categoryFa: 'تاریخ',
+      difficulty: 'easy',
+      difficultyFa: 'آسان',
+      playersCount: 1,
+      maxPlayers: 6,
+      status: 'waiting',
+      createdAt: new Date().toISOString()
+    }
+  ];
+
+  // Games events
+  socket.on('games:list', () => {
+    console.log('📋 Games list requested by:', socket.id);
+    socket.emit('games:list', {
+      success: true,
+      games: sampleGames
+    });
+  });
+
+  socket.on('games:join', (data) => {
+    console.log('🎮 User joined game:', data);
+    const { gameId } = data;
+    const game = sampleGames.find(g => g.id === gameId);
+    
+    if (game && game.playersCount < game.maxPlayers) {
+      game.playersCount += 1;
+      socket.join(gameId);
+      
+      // Notify user of successful join
+      socket.emit('games:joinSuccess', {
+        success: true,
+        game: game
+      });
+      
+      // Notify all clients about updated game
+      io.emit('games:updated', {
+        gameId: gameId,
+        playersCount: game.playersCount
+      });
+    } else {
+      socket.emit('games:joinError', {
+        success: false,
+        error: 'Game is full or not found'
       });
     }
   });

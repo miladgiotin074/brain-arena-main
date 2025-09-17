@@ -13,6 +13,8 @@
     "@telegram-apps/init-data-node": "^2.0.10",
     "@telegram-apps/sdk-react": "^3.2.4",
     "@tma.js/init-data-node": "^2.0.0",
+    "i18next": "^25.5.2",
+    "i18next-browser-languagedetector": "^8.2.0",
     "lucide-react": "^0.544.0",
     "mongoose": "^8.18.1",
     "next": "15.3.1",
@@ -20,6 +22,7 @@
     "normalize.css": "^8.0.1",
     "react": "^18",
     "react-dom": "^18",
+    "react-i18next": "^15.7.3",
     "socket.io-client": "^4.8.1"
   },
   "devDependencies": {

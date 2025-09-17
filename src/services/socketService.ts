@@ -21,8 +21,19 @@ class SocketService {
   private connect() {
     try {
       // Get Telegram init data for authentication (only on client side)
-      const initData = typeof window !== 'undefined' ? getTelegramInitData() : null;
+      let initData = null;
+      if (typeof window !== 'undefined') {
+        try {
+          initData = getTelegramInitData();
+        } catch (error) {
+          console.warn('⚠️ Running outside Telegram environment, using development mode');
+          // For development outside Telegram, use mock data with query_id=dev
+          initData = 'query_id=dev&user=%7B%22id%22%3A999999999%2C%22first_name%22%3A%22Dev%22%2C%22last_name%22%3A%22User%22%2C%22username%22%3A%22dev_user%22%2C%22language_code%22%3A%22en%22%7D&auth_date=' + Math.floor(Date.now() / 1000) + '&hash=dev_hash';
+        }
+      }
       const botToken = process.env.NEXT_PUBLIC_BOT_TOKEN;
+      
+      console.log('🔐 Connecting with auth data:', { botToken: botToken ? 'present' : 'missing', initData: initData ? initData.substring(0, 50) + '...' : 'null' });
       
       // Connect to backend socket server with auth data in handshake
       this.socket = io(process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3001', {
@@ -63,6 +74,18 @@ class SocketService {
 
     this.socket.on('connect_error', (error) => {
       console.error('Socket connection error:', error);
+      
+      // Check if it's an authentication error
+      const errorString = error.toString() || error.message || '';
+      if (errorString.includes('Authentication failed')) {
+        console.log('🚫 Authentication failed, redirecting to auth-error page');
+        // Redirect to authentication error page
+        if (typeof window !== 'undefined') {
+          window.location.href = '/auth-error?type=SIGNATURE_INVALID&message=' + encodeURIComponent(errorString);
+        }
+        return;
+      }
+      
       this.handleReconnect();
     });
 

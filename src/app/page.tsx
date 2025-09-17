@@ -1,22 +1,32 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useCallback } from 'react';
-import { useTranslations } from 'next-intl';
+import { useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { hapticFeedback, initData, useSignal } from '@telegram-apps/sdk-react';
 import { Play, PlayIcon, PlaySquare } from 'lucide-react';
 import Image from 'next/image';
 import { Page } from '@/components/Page';
 import { MainLayout } from '@/components/MainLayout';
+import { GamesList } from '@/components/GamesList';
 import { useAuth } from '@/hooks/useAuth';
 import { useAuthValidation } from '@/hooks/useAuthValidation';
+import { useGames } from '@/hooks/useGames';
+import '@/i18n';
 
 export default function Home() {
   const router = useRouter();
-  const t = useTranslations('home');
+  const { t, i18n } = useTranslation();
   const initDataUser = useSignal(initData.user);
   const { user, isLoading, error } = useAuth();
   const authValidation = useAuthValidation();
+  const { games, loading: gamesLoading, error: gamesError, refreshGames, joinGame, joining } = useGames();
+
+  // Set document direction based on language
+  useEffect(() => {
+    document.documentElement.dir = i18n.language === 'fa' ? 'rtl' : 'ltr';
+    document.documentElement.lang = i18n.language;
+  }, [i18n.language]);
 
   const handleStartQuiz = useCallback(() => {
     console.log('Starting quiz...');
@@ -357,64 +367,16 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Finished Games Section */}
+          {/* Games Section */}
           <div className="mt-8">
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-4 space-y-3">
-              <div className="flex items-center mb-4">
-                <div className="text-2xl mr-3 rtl:ml-3 rtl:mr-0">
-                  🏁
-                </div>
-                <h2 className="text-xl font-bold text-white">{t('game.finishedGames')}</h2>
-              </div>
-              
-              <div className="bg-gray-700/50 rounded-xl p-4 flex items-center space-x-3 rtl:space-x-reverse">
-                <div className="relative">
-                  <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center text-white font-bold">
-                    A
-                  </div>
-                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-yellow-500 rounded-full border-2 border-gray-700 flex items-center justify-center">
-                    <span className="text-xs">👑</span>
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-white font-semibold">علی رضایی</h3>
-                      <p className="text-gray-400 text-sm">@ali_rezaei</p>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-green-400 font-bold text-sm">{t('game.won')}</div>
-                      <div className="text-gray-400 text-xs">15-12</div>
-                    </div>
-                  </div>
-                  <div className="text-gray-400 text-xs mt-1">{t('game.finished')} 2 {t('game.hoursAgo')}</div>
-                </div>
-              </div>
-
-              <div className="bg-gray-700/50 rounded-xl p-4 flex items-center space-x-3 rtl:space-x-reverse">
-                <div className="relative">
-                  <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold">
-                    N
-                  </div>
-                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-gray-700 flex items-center justify-center">
-                    <span className="text-xs">💔</span>
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-white font-semibold">نیما حسینی</h3>
-                      <p className="text-gray-400 text-sm">@nima_hosseini</p>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-red-400 font-bold text-sm">{t('game.lost')}</div>
-                      <div className="text-gray-400 text-xs">8-15</div>
-                    </div>
-                  </div>
-                  <div className="text-gray-400 text-xs mt-1">{t('game.finished')} 1 {t('game.dayAgo')}</div>
-                </div>
-              </div>
-            </div>
+            <GamesList
+              games={games}
+              loading={gamesLoading}
+              error={gamesError}
+              onRefresh={refreshGames}
+              onJoinGame={joinGame}
+              joining={joining}
+            />
           </div>
 
         </div>

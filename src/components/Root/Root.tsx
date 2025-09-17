@@ -6,6 +6,7 @@ import {
   miniApp,
   useLaunchParams,
   useSignal,
+  init as initSDK,
 } from '@telegram-apps/sdk-react';
 import { useLocale } from 'next-intl';
 // Removed @telegram-apps/telegram-ui dependency
@@ -51,6 +52,18 @@ export function Root(props: PropsWithChildren) {
   // side.
   const didMount = useDidMount();
   const [isLoading, setIsLoading] = useState(true);
+
+  // Initialize Telegram SDK
+  useEffect(() => {
+    if (didMount) {
+      try {
+        initSDK();
+        console.log('✅ Telegram SDK initialized successfully');
+      } catch (error) {
+        console.warn('⚠️ Failed to initialize Telegram SDK:', error);
+      }
+    }
+  }, [didMount]);
 
   // Ensure loading lasts at least 1 second
   useEffect(() => {

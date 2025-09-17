@@ -1,0 +1,74 @@
+{
+  "common": {
+    "loading": "در حال بارگذاری...",
+    "error": "خطا",
+    "retry": "تلاش مجدد",
+    "refresh": "بروزرسانی",
+    "back": "بازگشت",
+    "cancel": "لغو",
+    "confirm": "تأیید",
+    "save": "ذخیره",
+    "delete": "حذف",
+    "edit": "ویرایش",
+    "close": "بستن"
+  },
+  "navigation": {
+    "home": "خانه",
+    "chats": "چت‌ها",
+    "notifications": "اعلان‌ها",
+    "settings": "تنظیمات"
+  },
+  "game": {
+    "availableGames": "بازی‌های موجود",
+    "players": "بازیکن",
+    "join": "پیوستن",
+    "joining": "در حال پیوستن...",
+    "category": "دسته‌بندی",
+    "difficulty": "سختی",
+    "refresh": "بروزرسانی",
+    "retry": "تلاش مجدد",
+    "status": {
+      "waiting": "در انتظار",
+      "active": "فعال",
+      "finished": "تمام شده"
+    },
+    "error": {
+      "title": "بارگذاری بازی‌ها با خطا مواجه شد"
+    },
+    "noGames": {
+      "title": "هیچ بازی‌ای موجود نیست",
+      "description": "در حال حاضر هیچ بازی‌ای موجود نیست. صفحه را بروزرسانی کنید."
+    }
+  },
+  "settings": {
+    "title": "تنظیمات",
+    "language": "زبان",
+    "theme": "تم",
+    "notifications": "اعلان‌ها",
+    "account": "حساب کاربری",
+    "about": "درباره",
+    "version": "نسخه",
+    "support": "پشتیبانی"
+  },
+  "home": {
+    "welcome": "به برین آرنا خوش آمدید",
+    "subtitle": "ذهن خود را با کوییزهای هیجان‌انگیز به چالش بکشید",
+    "playNow": "بازی کنید",
+    "leaderboard": "جدول امتیازات",
+    "achievements": "دستاوردها"
+  },
+  "chat": {
+    "title": "چت‌ها",
+    "noChats": "هنوز چتی وجود ندارد",
+    "startChat": "شروع چت جدید",
+    "typing": "در حال تایپ...",
+    "online": "آنلاین",
+    "offline": "آفلاین"
+  },
+  "notifications": {
+    "title": "اعلان‌ها",
+    "noNotifications": "اعلانی وجود ندارد",
+    "markAllRead": "همه را خوانده شده علامت بزن",
+    "clear": "پاک کردن همه"
+  }
+}
